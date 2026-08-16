@@ -13,25 +13,24 @@
     />
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
-
   <body>
     <div class="jumbotron text-center">
       <h1>Library</h1>
       <p>Add books to your virtual library</p>
     </div>
-
     <button data-toggle="collapse" data-target="#demo" class="btn btn-info">
       Add new book
     </button>
-
     <div id="demo" class="collapse">
-      <div class="form-group">
+      <div class="form-group" id="bookForm">
         <label for="title">Title:</label>
         <input
           type="text"
           class="form-control"
           id="title"
           name="title"
+          minlength="1"
+          maxlength="100"
           required
         />
         <label for="author">Author: </label>
@@ -40,6 +39,8 @@
           class="form-control"
           id="author"
           name="author"
+          minlength="1"
+          maxlength="100"
           required
         />
         <label for="pages">Pages:</label>
@@ -48,6 +49,9 @@
           class="form-control"
           id="pages"
           name="pages"
+          min="1"
+          max="20000"
+          step="1"
           required
         />
         <label class="form-check-label">
@@ -55,18 +59,15 @@
             type="checkbox"
             class="form-check-input"
             id="check"
-            value=""
+            name="read"
+            value="true"
           />Read
         </label>
-        <input
-          type="submit"
-          value="Submit"
-          class="btn btn-primary"
-          onclick="submit()"
-        />
+        <button type="button" id="addBook" class="btn btn-primary">
+          Submit
+        </button>
       </div>
     </div>
-
     <table class="table" id="display">
       <thead class="thead-dark">
         <tr>
@@ -87,7 +88,6 @@
         </tr>
       </tbody>
     </table>
-
     <script src="script.js" type="module"></script>
   </body>
 </html>

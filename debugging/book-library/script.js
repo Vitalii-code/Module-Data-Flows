@@ -1,10 +1,8 @@
 let myLibrary = [];
-
 window.addEventListener("load", function (e) {
   populateStorage();
   render();
 });
-
 function populateStorage() {
   if (myLibrary.length == 0) {
     let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
@@ -19,15 +17,15 @@ function populateStorage() {
     render();
   }
 }
-
 const title = document.getElementById("title");
 const author = document.getElementById("author");
 const pages = document.getElementById("pages");
 const check = document.getElementById("check");
+const addBookBtn = document.getElementById("addBook");
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
-export function submit() {
+function addBook() {
   if (
     title.value == null ||
     title.value == "" ||
@@ -45,13 +43,14 @@ export function submit() {
   }
 }
 
+addBookBtn.addEventListener("click", addBook);
+
 function Book(title, author, pages, check) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.check = check;
 }
-
 function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
@@ -71,7 +70,6 @@ function render() {
     titleCell.innerHTML = myLibrary[i].title;
     authorCell.innerHTML = myLibrary[i].author;
     pagesCell.innerHTML = myLibrary[i].pages;
-
     //add and wait for action for read/unread button
     let changeBut = document.createElement("button");
     changeBut.id = i;
@@ -84,12 +82,10 @@ function render() {
       readStatus = "No";
     }
     changeBut.innerText = readStatus;
-
     changeBut.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
-
     //add delete button to every row and render again
     let delBut = document.createElement("button");
     delBut.id = i + 5;
@@ -103,5 +99,3 @@ function render() {
     });
   }
 }
-
-window.submit = submit;
