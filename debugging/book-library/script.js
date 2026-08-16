@@ -1,4 +1,5 @@
-let myLibrary = [];
+const myLibrary = [];
+
 window.addEventListener("load", function (e) {
   populateStorage();
   render();
@@ -17,28 +18,35 @@ function populateStorage() {
     myLibrary.push(book2);
   }
 }
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const checkInput = document.getElementById("check");
 const addBookBtn = document.getElementById("addBook");
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function addBook() {
+  const cleanTitle = titleInput.value.trim();
+  const cleanAuthor = authorInput.value.trim();
+  const pageCount = Number(pagesInput.value);
+
   if (
-    title.value.trim() == "" ||
-    author.value.trim() == "" ||
-    pages.value.trim() == ""
+    cleanTitle == "" ||
+    cleanAuthor == "" ||
+    pagesInput.value.trim() == "" ||
+    Number.isNaN(pageCount) ||
+    pageCount <= 0
   ) {
-    alert("Please fill all fields!");
+    alert("Please fill all fields correctly!");
     return false;
   } else {
     const book = new Book(
-      title.value,
-      author.value,
-      Number(pages.value),
-      check.checked
+      cleanTitle,
+      cleanAuthor,
+      pageCount,
+      checkInput.checked
     );
     myLibrary.push(book);
     render();
@@ -53,6 +61,15 @@ function Book(title, author, pages, check) {
   this.pages = pages;
   this.check = check;
 }
+
+function showMessage(text) {
+  const msg = document.createElement("div");
+  msg.className = "alert alert-info";
+  msg.textContent = text;
+  document.body.prepend(msg);
+  setTimeout(() => msg.remove(), 3000);
+}
+
 function render() {
   const tbody = document.querySelector("#display tbody");
   tbody.innerHTML = "";
@@ -87,12 +104,12 @@ function render() {
     const deleteButton = document.createElement("button");
     deleteCell.appendChild(deleteButton);
     deleteButton.className = "btn btn-warning";
+    deleteButton.textContent = "Delete";
     deleteButton.addEventListener("click", function () {
       const deletedTitle = myLibrary[i].title;
       myLibrary.splice(i, 1);
       render();
-      alert(`You've deleted title: ${deletedTitle}`);
+      showMessage(`You've deleted title: ${deletedTitle}`);
     });
-    deleteButton.textContent = "Delete";
   }
 }
