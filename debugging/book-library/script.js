@@ -6,8 +6,8 @@ window.addEventListener("load", function (e) {
 
 function populateStorage() {
   if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", 252, true);
-    let book2 = new Book(
+    const book1 = new Book("Robison Crusoe", "Daniel Defoe", 252, true);
+    const book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
       127,
@@ -34,7 +34,7 @@ function addBook() {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(
+    const book = new Book(
       title.value,
       author.value,
       Number(pages.value),
@@ -54,39 +54,45 @@ function Book(title, author, pages, check) {
   this.check = check;
 }
 function render() {
-  let tbody = document.querySelector("#display tbody");
+  const tbody = document.querySelector("#display tbody");
   tbody.innerHTML = "";
 
-  let length = myLibrary.length;
+  const length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = tbody.insertRow();
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);
+    const row = tbody.insertRow();
+    const titleCell = row.insertCell(0);
+    const authorCell = row.insertCell(1);
+    const pagesCell = row.insertCell(2);
+    const wasReadCell = row.insertCell(3);
+    const deleteCell = row.insertCell(4);
     titleCell.textContent = myLibrary[i].title;
     authorCell.textContent = myLibrary[i].author;
     pagesCell.textContent = myLibrary[i].pages;
 
-    let changeButton = document.createElement("button");
+    const changeButton = document.createElement("button");
     changeButton.className = "btn btn-success";
     wasReadCell.appendChild(changeButton);
-    let readStatus = myLibrary[i].check ? "Yes" : "No";
+    let readStatus;
+    if (myLibrary[i].check) {
+      readStatus = "Yes";
+    } else {
+      readStatus = "No";
+    }
     changeButton.textContent = readStatus;
     changeButton.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
 
-    let deleteButton = document.createElement("button");
+    const deleteButton = document.createElement("button");
     deleteCell.appendChild(deleteButton);
     deleteButton.className = "btn btn-warning";
-    deleteButton.textContent = "Delete";
     deleteButton.addEventListener("click", function () {
+      const deletedTitle = myLibrary[i].title;
       myLibrary.splice(i, 1);
       render();
-      alert(`You've deleted title: ${myLibrary[i].title}`);
+      alert(`You've deleted title: ${deletedTitle}`);
     });
+    deleteButton.textContent = "Delete";
   }
 }
