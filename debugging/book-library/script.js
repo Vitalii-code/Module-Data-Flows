@@ -54,16 +54,12 @@ function Book(title, author, pages, check) {
   this.check = check;
 }
 function render() {
-  let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
-  }
-  //insert updated row and cells
+  let tbody = document.querySelector("#display tbody");
+  tbody.innerHTML = "";
+
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
+    let row = tbody.insertRow();
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
@@ -72,25 +68,18 @@ function render() {
     titleCell.textContent = myLibrary[i].title;
     authorCell.textContent = myLibrary[i].author;
     pagesCell.textContent = myLibrary[i].pages;
-    //add and wait for action for read/unread button
+
     let changeBut = document.createElement("button");
-    changeBut.id = i;
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    if (myLibrary[i].check) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
+    let readStatus = myLibrary[i].check ? "Yes" : "No";
     changeBut.innerText = readStatus;
     changeBut.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
-    //add delete button to every row and render again
+
     let delBut = document.createElement("button");
-    delBut.id = i + 5;
     deleteCell.appendChild(delBut);
     delBut.className = "btn btn-warning";
     delBut.innerHTML = "Delete";
