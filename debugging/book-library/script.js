@@ -69,24 +69,24 @@ function render() {
     authorCell.textContent = myLibrary[i].author;
     pagesCell.textContent = myLibrary[i].pages;
 
-    let changeBut = document.createElement("button");
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
+    let changeButton = document.createElement("button");
+    changeButton.className = "btn btn-success";
+    wasReadCell.appendChild(changeButton);
     let readStatus = myLibrary[i].check ? "Yes" : "No";
-    changeBut.innerText = readStatus;
-    changeBut.addEventListener("click", function () {
+    changeButton.textContent = readStatus;
+    changeButton.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
 
-    let delBut = document.createElement("button");
-    deleteCell.appendChild(delBut);
-    delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
-    delBut.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
+    let deleteButton = document.createElement("button");
+    deleteCell.appendChild(deleteButton);
+    deleteButton.className = "btn btn-warning";
+    deleteButton.textContent = "Delete";
+    deleteButton.addEventListener("click", function () {
       myLibrary.splice(i, 1);
       render();
+      alert(`You've deleted title: ${myLibrary[i].title}`);
     });
   }
 }
