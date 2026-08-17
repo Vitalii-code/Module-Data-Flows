@@ -6,7 +6,17 @@ const pagesInput = document.getElementById("pages");
 const checkInput = document.getElementById("check");
 const addBookBtn = document.getElementById("addBook");
 
-addBookBtn.addEventListener("click", addBook);
+document.querySelector("form").addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const form = e.target;
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
+  addBook();
+});
 
 window.addEventListener("load", function (e) {
   populateStorage();
