@@ -1,5 +1,13 @@
 const myLibrary = [];
 
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const checkInput = document.getElementById("check");
+const addBookBtn = document.getElementById("addBook");
+
+addBookBtn.addEventListener("click", addBook);
+
 window.addEventListener("load", function (e) {
   populateStorage();
   render();
@@ -18,12 +26,6 @@ function populateStorage() {
     myLibrary.push(book2);
   }
 }
-
-const titleInput = document.getElementById("title");
-const authorInput = document.getElementById("author");
-const pagesInput = document.getElementById("pages");
-const checkInput = document.getElementById("check");
-const addBookBtn = document.getElementById("addBook");
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
@@ -52,8 +54,6 @@ function addBook() {
     render();
   }
 }
-
-addBookBtn.addEventListener("click", addBook);
 
 function Book(title, author, pages, check) {
   this.title = title;
