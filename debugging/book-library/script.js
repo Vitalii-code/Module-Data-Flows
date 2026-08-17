@@ -4,7 +4,6 @@ const titleInput = document.getElementById("title");
 const authorInput = document.getElementById("author");
 const pagesInput = document.getElementById("pages");
 const checkInput = document.getElementById("check");
-const addBookBtn = document.getElementById("addBook");
 
 document.querySelector("form").addEventListener("submit", (e) => {
   e.preventDefault();
