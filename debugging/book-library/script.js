@@ -39,6 +39,7 @@ function addBook() {
     cleanAuthor == "" ||
     pagesInput.value.trim() == "" ||
     Number.isNaN(pageCount) ||
+    !Number.isInteger(pageCount) ||
     pageCount <= 0
   ) {
     alert("Please fill all fields correctly!");
